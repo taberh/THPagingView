@@ -7,14 +7,17 @@
 //
 
 #import "THAppDelegate.h"
+#import "THRootViewController.h"
 
 @implementation THAppDelegate
 
 @synthesize window = _window;
+@synthesize rootViewController = _rootViewController;
 
 - (void)dealloc
 {
     [_window release];
+    [_rootViewController release];
     [super dealloc];
 }
 
@@ -23,6 +26,8 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    self.rootViewController = [[THRootViewController alloc] init];
+    self.window.rootViewController = self.rootViewController;
     [self.window makeKeyAndVisible];
     return YES;
 }

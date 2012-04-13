@@ -13,6 +13,8 @@
 		BA8A9F7D1537E19E009D0B6E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BA8A9F7B1537E19E009D0B6E /* InfoPlist.strings */; };
 		BA8A9F7F1537E19E009D0B6E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8A9F7E1537E19E009D0B6E /* main.m */; };
 		BA8A9F831537E19E009D0B6E /* THAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8A9F821537E19E009D0B6E /* THAppDelegate.m */; };
+		BA8A9F8C1537E1D5009D0B6E /* THPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8A9F8B1537E1D5009D0B6E /* THPagingView.m */; };
+		BA8A9F8F1537E1E2009D0B6E /* THRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8A9F8E1537E1E2009D0B6E /* THRootViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,12 +22,16 @@
 		BA8A9F721537E19E009D0B6E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BA8A9F741537E19E009D0B6E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BA8A9F761537E19E009D0B6E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		BA8A9F7A1537E19E009D0B6E /* THPagingView-Info.plist */ = {isa = PBXFileReference; path = "THPagingView-Info.plist"; sourceTree = "<group>"; };
+		BA8A9F7A1537E19E009D0B6E /* THPagingView-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "THPagingView-Info.plist"; sourceTree = "<group>"; };
 		BA8A9F7C1537E19E009D0B6E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BA8A9F7E1537E19E009D0B6E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		BA8A9F801537E19E009D0B6E /* THPagingView-Prefix.pch */ = {isa = PBXFileReference; path = "THPagingView-Prefix.pch"; sourceTree = "<group>"; };
-		BA8A9F811537E19E009D0B6E /* THAppDelegate.h */ = {isa = PBXFileReference; path = THAppDelegate.h; sourceTree = "<group>"; };
+		BA8A9F801537E19E009D0B6E /* THPagingView-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "THPagingView-Prefix.pch"; sourceTree = "<group>"; };
+		BA8A9F811537E19E009D0B6E /* THAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = THAppDelegate.h; sourceTree = "<group>"; };
 		BA8A9F821537E19E009D0B6E /* THAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = THAppDelegate.m; sourceTree = "<group>"; };
+		BA8A9F8A1537E1D5009D0B6E /* THPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THPagingView.h; sourceTree = "<group>"; };
+		BA8A9F8B1537E1D5009D0B6E /* THPagingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THPagingView.m; sourceTree = "<group>"; };
+		BA8A9F8D1537E1E2009D0B6E /* THRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THRootViewController.h; sourceTree = "<group>"; };
+		BA8A9F8E1537E1E2009D0B6E /* THRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THRootViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,8 +78,11 @@
 		BA8A9F781537E19E009D0B6E /* THPagingView */ = {
 			isa = PBXGroup;
 			children = (
+				BA8A9F891537E1D5009D0B6E /* Classes */,
 				BA8A9F811537E19E009D0B6E /* THAppDelegate.h */,
 				BA8A9F821537E19E009D0B6E /* THAppDelegate.m */,
+				BA8A9F8D1537E1E2009D0B6E /* THRootViewController.h */,
+				BA8A9F8E1537E1E2009D0B6E /* THRootViewController.m */,
 				BA8A9F791537E19E009D0B6E /* Supporting Files */,
 			);
 			path = THPagingView;
@@ -88,6 +97,15 @@
 				BA8A9F801537E19E009D0B6E /* THPagingView-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BA8A9F891537E1D5009D0B6E /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				BA8A9F8A1537E1D5009D0B6E /* THPagingView.h */,
+				BA8A9F8B1537E1D5009D0B6E /* THPagingView.m */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,6 +171,8 @@
 			files = (
 				BA8A9F7F1537E19E009D0B6E /* main.m in Sources */,
 				BA8A9F831537E19E009D0B6E /* THAppDelegate.m in Sources */,
+				BA8A9F8C1537E1D5009D0B6E /* THPagingView.m in Sources */,
+				BA8A9F8F1537E1E2009D0B6E /* THRootViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
