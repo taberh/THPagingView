@@ -42,11 +42,9 @@
     CGFloat percentScrolledIntoFirstVisiblePage_;
 }
 
-@property (strong, nonatomic) id <THPagingViewDelegate> pagingDelegate;
+@property (strong, nonatomic) id <THPagingViewDelegate> delegate;
 
-- (id)initWithFrame:(CGRect)frame 
-     andPageInIndex:(NSInteger)index 
-             target:(id)target;
+- (id)initWithFrame:(CGRect)frame target:(id)target index:(NSInteger)index;
 
 - (void)nextPage;
 - (void)prevPage;

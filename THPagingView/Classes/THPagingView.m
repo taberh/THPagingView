@@ -23,25 +23,23 @@
 
 @implementation THPagingView
 
-@synthesize pagingDelegate;
+@synthesize delegate;
 
 - (void)dealloc
 {
-    pagingDelegate = nil;
+    delegate = nil;
     [pageViews_ release], pageViews_ = nil;
     [super dealloc];
 }
 
-- (id)initWithFrame:(CGRect)frame 
-     andPageInIndex:(NSInteger)index 
-             target:(id)target
+- (id)initWithFrame:(CGRect)frame target:(id)target index:(NSInteger)index
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.pagingDelegate = target;
+        self.delegate = target;
         
-        PADDING_ = [pagingDelegate numberOfPagePaddingInPagingView:self];
-        pageCount_ = [pagingDelegate numberOfPageCountInTHPagingView:self];
+        PADDING_ = [delegate numberOfPagePaddingInPagingView:self];
+        pageCount_ = [delegate numberOfPageCountInTHPagingView:self];
         
         self.frame = [self frameForPagingView];
         self.contentSize = [self contentSizeForPagingView];
@@ -51,7 +49,7 @@
         self.showsVerticalScrollIndicator = NO;
         self.autoresizesSubviews = YES;
         self.pagingEnabled = YES;
-        self.delegate = self;
+        [super setDelegate:self];
         
         pageViews_ = [[NSMutableArray alloc] init];
         for (int i = 0; i < pageCount_; i++) {
@@ -94,8 +92,8 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    if ([pagingDelegate respondsToSelector:@selector(pagingView:didAppearPage:atIndex:)]) {
-        [pagingDelegate pagingView:self didAppearPage:[pageViews_ objectAtIndex:currentIndex_] atIndex:currentIndex_];
+    if ([delegate respondsToSelector:@selector(pagingView:didAppearPage:atIndex:)]) {
+        [delegate pagingView:self didAppearPage:[pageViews_ objectAtIndex:currentIndex_] atIndex:currentIndex_];
     }
 }
 
@@ -110,7 +108,7 @@
     UIView *currentPage = [pageViews_ objectAtIndex:index];
     
     if ((NSNull *)currentPage == [NSNull null]) {
-        currentPage = [pagingDelegate pagingView:self pageAtIndex:index];
+        currentPage = [delegate pagingView:self pageAtIndex:index];
         
         currentPage.frame = [self frameForPageAtIndex:index];
         
@@ -152,8 +150,8 @@
     frame.origin.y = 0;
     [self scrollRectToVisible:frame animated:animation];
     
-    if ([pagingDelegate respondsToSelector:@selector(pagingView:didAppearPage:atIndex:)]) {
-        [pagingDelegate pagingView:self didAppearPage:[pageViews_ objectAtIndex:currentIndex_] atIndex:currentIndex_];
+    if ([delegate respondsToSelector:@selector(pagingView:didAppearPage:atIndex:)]) {
+        [delegate pagingView:self didAppearPage:[pageViews_ objectAtIndex:currentIndex_] atIndex:currentIndex_];
     }
 }
 
@@ -172,7 +170,7 @@
 - (CGRect)frameForPageAtIndex:(NSInteger)index
 {
     // We have to use our paging scroll view's bounds, not frame, to calculate the page placement. When the device is in
-    // landscape orientation, the frame will still be in portrait because the pagingScrollView is the root view controller's
+    // landscape orientation, the frame will still be in portrait because the pagingView is the root view controller's
     // view, so its frame is in window coordinate space, which is never rotated. Its bounds, however, will be in landscape
     // because it has a rotation transform applied.
     CGRect bounds = self.bounds;
@@ -195,7 +193,7 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    // here, our pagingScrollView bounds have not yet been updated for the new interface orientation. So this is a good
+    // here, our pagingView bounds have not yet been updated for the new interface orientation. So this is a good
     // place to calculate the content offset that we will need in the new orientation
     CGFloat offset = self.contentOffset.x;
     CGFloat pageWidth = self.bounds.size.width;
@@ -219,8 +217,8 @@
         UIView *page = [pageViews_ objectAtIndex:i];
         
         if ((NSNull *)page != [NSNull null]) {
-            if ([pagingDelegate respondsToSelector:@selector(pagingView:willRotatePage:atIndex:)]) {
-                [pagingDelegate pagingView:self willRotatePage:page atIndex:i];
+            if ([delegate respondsToSelector:@selector(pagingView:willRotatePage:atIndex:)]) {
+                [delegate pagingView:self willRotatePage:page atIndex:i];
             }
             page.frame = [self frameForPageAtIndex:i];
         }
