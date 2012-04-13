@@ -1,0 +1,263 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BA8A9F731537E19E009D0B6E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA8A9F721537E19E009D0B6E /* UIKit.framework */; };
+		BA8A9F751537E19E009D0B6E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA8A9F741537E19E009D0B6E /* Foundation.framework */; };
+		BA8A9F771537E19E009D0B6E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA8A9F761537E19E009D0B6E /* CoreGraphics.framework */; };
+		BA8A9F7D1537E19E009D0B6E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BA8A9F7B1537E19E009D0B6E /* InfoPlist.strings */; };
+		BA8A9F7F1537E19E009D0B6E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8A9F7E1537E19E009D0B6E /* main.m */; };
+		BA8A9F831537E19E009D0B6E /* THAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8A9F821537E19E009D0B6E /* THAppDelegate.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		BA8A9F6E1537E19E009D0B6E /* THPagingView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = THPagingView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA8A9F721537E19E009D0B6E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		BA8A9F741537E19E009D0B6E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		BA8A9F761537E19E009D0B6E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		BA8A9F7A1537E19E009D0B6E /* THPagingView-Info.plist */ = {isa = PBXFileReference; path = "THPagingView-Info.plist"; sourceTree = "<group>"; };
+		BA8A9F7C1537E19E009D0B6E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		BA8A9F7E1537E19E009D0B6E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		BA8A9F801537E19E009D0B6E /* THPagingView-Prefix.pch */ = {isa = PBXFileReference; path = "THPagingView-Prefix.pch"; sourceTree = "<group>"; };
+		BA8A9F811537E19E009D0B6E /* THAppDelegate.h */ = {isa = PBXFileReference; path = THAppDelegate.h; sourceTree = "<group>"; };
+		BA8A9F821537E19E009D0B6E /* THAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = THAppDelegate.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BA8A9F6B1537E19E009D0B6E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA8A9F731537E19E009D0B6E /* UIKit.framework in Frameworks */,
+				BA8A9F751537E19E009D0B6E /* Foundation.framework in Frameworks */,
+				BA8A9F771537E19E009D0B6E /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BA8A9F631537E19E009D0B6E = {
+			isa = PBXGroup;
+			children = (
+				BA8A9F781537E19E009D0B6E /* THPagingView */,
+				BA8A9F711537E19E009D0B6E /* Frameworks */,
+				BA8A9F6F1537E19E009D0B6E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BA8A9F6F1537E19E009D0B6E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BA8A9F6E1537E19E009D0B6E /* THPagingView.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BA8A9F711537E19E009D0B6E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BA8A9F721537E19E009D0B6E /* UIKit.framework */,
+				BA8A9F741537E19E009D0B6E /* Foundation.framework */,
+				BA8A9F761537E19E009D0B6E /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BA8A9F781537E19E009D0B6E /* THPagingView */ = {
+			isa = PBXGroup;
+			children = (
+				BA8A9F811537E19E009D0B6E /* THAppDelegate.h */,
+				BA8A9F821537E19E009D0B6E /* THAppDelegate.m */,
+				BA8A9F791537E19E009D0B6E /* Supporting Files */,
+			);
+			path = THPagingView;
+			sourceTree = "<group>";
+		};
+		BA8A9F791537E19E009D0B6E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BA8A9F7A1537E19E009D0B6E /* THPagingView-Info.plist */,
+				BA8A9F7B1537E19E009D0B6E /* InfoPlist.strings */,
+				BA8A9F7E1537E19E009D0B6E /* main.m */,
+				BA8A9F801537E19E009D0B6E /* THPagingView-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BA8A9F6D1537E19E009D0B6E /* THPagingView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA8A9F861537E19E009D0B6E /* Build configuration list for PBXNativeTarget "THPagingView" */;
+			buildPhases = (
+				BA8A9F6A1537E19E009D0B6E /* Sources */,
+				BA8A9F6B1537E19E009D0B6E /* Frameworks */,
+				BA8A9F6C1537E19E009D0B6E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = THPagingView;
+			productName = THPagingView;
+			productReference = BA8A9F6E1537E19E009D0B6E /* THPagingView.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BA8A9F651537E19E009D0B6E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = BA8A9F681537E19E009D0B6E /* Build configuration list for PBXProject "THPagingView" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = BA8A9F631537E19E009D0B6E;
+			productRefGroup = BA8A9F6F1537E19E009D0B6E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BA8A9F6D1537E19E009D0B6E /* THPagingView */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BA8A9F6C1537E19E009D0B6E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA8A9F7D1537E19E009D0B6E /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BA8A9F6A1537E19E009D0B6E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA8A9F7F1537E19E009D0B6E /* main.m in Sources */,
+				BA8A9F831537E19E009D0B6E /* THAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		BA8A9F7B1537E19E009D0B6E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BA8A9F7C1537E19E009D0B6E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BA8A9F841537E19E009D0B6E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BA8A9F851537E19E009D0B6E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BA8A9F871537E19E009D0B6E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "THPagingView/THPagingView-Prefix.pch";
+				INFOPLIST_FILE = "THPagingView/THPagingView-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		BA8A9F881537E19E009D0B6E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "THPagingView/THPagingView-Prefix.pch";
+				INFOPLIST_FILE = "THPagingView/THPagingView-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BA8A9F681537E19E009D0B6E /* Build configuration list for PBXProject "THPagingView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA8A9F841537E19E009D0B6E /* Debug */,
+				BA8A9F851537E19E009D0B6E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BA8A9F861537E19E009D0B6E /* Build configuration list for PBXNativeTarget "THPagingView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA8A9F871537E19E009D0B6E /* Debug */,
+				BA8A9F881537E19E009D0B6E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BA8A9F651537E19E009D0B6E /* Project object */;
+}
