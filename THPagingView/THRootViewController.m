@@ -90,6 +90,7 @@
     CGRect frame = [[UIScreen mainScreen] bounds];
     pagingView_ = [[THPagingView alloc] initWithFrame:frame target:self index:0];
     [self.view addSubview:pagingView_];
+    [pagingView_ release];
 }
 
 - (void)viewDidUnload

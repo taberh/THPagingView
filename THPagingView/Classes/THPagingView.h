@@ -32,7 +32,6 @@
 @interface THPagingView : UIScrollView <UIScrollViewDelegate>
 {
     NSMutableArray *pageViews_;
-    NSInteger currentIndex_;
     NSInteger pageCount_;
     NSInteger PADDING_;
     NSInteger startIndex_;
@@ -43,9 +42,11 @@
 }
 
 @property (strong, nonatomic) id <THPagingViewDelegate> delegate;
+@property (readonly, nonatomic) NSInteger index;
 
 - (id)initWithFrame:(CGRect)frame target:(id)target index:(NSInteger)index;
 
+- (void)scrollToIndex:(NSInteger)index withAnimation:(BOOL)animation;
 - (void)nextPage;
 - (void)prevPage;
 

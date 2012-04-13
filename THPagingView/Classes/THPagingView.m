@@ -13,7 +13,6 @@
 - (void)loadPageForIndex:(NSInteger)index;
 - (void)unloadPageForIndex:(NSInteger)index;
 - (void)setCurrentIndex:(NSInteger)index;
-- (void)scrollToIndex:(NSInteger)index withAnimation:(BOOL)animation;
 
 - (CGRect)frameForPagingView;
 - (CGRect)frameForPageAtIndex:(NSInteger)index;
@@ -23,7 +22,7 @@
 
 @implementation THPagingView
 
-@synthesize delegate;
+@synthesize delegate, index;
 
 - (void)dealloc
 {
@@ -32,7 +31,7 @@
     [super dealloc];
 }
 
-- (id)initWithFrame:(CGRect)frame target:(id)target index:(NSInteger)index
+- (id)initWithFrame:(CGRect)frame target:(id)target index:(NSInteger)startIndex
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -56,8 +55,8 @@
             [pageViews_ addObject:[NSNull null]];
         }
         
-        [self setCurrentIndex:index];
-        [self scrollToIndex:index withAnimation:NO];
+        [self setCurrentIndex:startIndex];
+        [self scrollToIndex:startIndex withAnimation:NO];
     }
     return self;
 }
@@ -67,14 +66,26 @@
 
 - (void)nextPage
 {
-    [self setCurrentIndex:currentIndex_ + 1];
-    [self scrollToIndex:currentIndex_ withAnimation:YES];
+    [self setCurrentIndex:index + 1];
+    [self scrollToIndex:index withAnimation:YES];
 }
 
 - (void)prevPage
 {
-    [self setCurrentIndex:currentIndex_ - 1];
-    [self scrollToIndex:currentIndex_ withAnimation:YES];
+    [self setCurrentIndex:index - 1];
+    [self scrollToIndex:index withAnimation:YES];
+}
+
+- (void)scrollToIndex:(NSInteger)index_ withAnimation:(BOOL)animation
+{
+    CGRect frame = self.frame;
+    frame.origin.x = frame.size.width * index_;
+    frame.origin.y = 0;
+    [self scrollRectToVisible:frame animated:animation];
+    
+    if ([delegate respondsToSelector:@selector(pagingView:didAppearPage:atIndex:)]) {
+        [delegate pagingView:self didAppearPage:[pageViews_ objectAtIndex:index] atIndex:index];
+    }
 }
 
 
@@ -85,7 +96,7 @@
 {
     CGFloat pageWidth = scrollView.frame.size.width;
     NSInteger page = floor(scrollView.contentOffset.x / pageWidth);
-    if (page != currentIndex_) {
+    if (page != index) {
         [self setCurrentIndex:page];
     }
 }
@@ -93,7 +104,7 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     if ([delegate respondsToSelector:@selector(pagingView:didAppearPage:atIndex:)]) {
-        [delegate pagingView:self didAppearPage:[pageViews_ objectAtIndex:currentIndex_] atIndex:currentIndex_];
+        [delegate pagingView:self didAppearPage:[pageViews_ objectAtIndex:index] atIndex:index];
     }
 }
 
@@ -101,18 +112,20 @@
 #pragma mark-
 #pragma mark page manage
 
-- (void)loadPageForIndex:(NSInteger)index
+- (void)loadPageForIndex:(NSInteger)index_
 {
-    if (index < 0 || index >= pageCount_) return;
+    if (index_ < 0 || index_ >= pageCount_) return;
     
-    UIView *currentPage = [pageViews_ objectAtIndex:index];
+    UIView *currentPage = [pageViews_ objectAtIndex:index_];
     
     if ((NSNull *)currentPage == [NSNull null]) {
-        currentPage = [delegate pagingView:self pageAtIndex:index];
+        currentPage = [delegate pagingView:self pageAtIndex:index_];
         
-        currentPage.frame = [self frameForPageAtIndex:index];
+        currentPage.frame = [self frameForPageAtIndex:index_];
         
-        [pageViews_ replaceObjectAtIndex:index withObject:currentPage];
+        [pageViews_ replaceObjectAtIndex:index_ withObject:currentPage];
+        
+        [currentPage release];
     }
     
     if (currentPage.superview == nil) {
@@ -120,39 +133,27 @@
     }
 }
 
-- (void)unloadPageForIndex:(NSInteger)index
+- (void)unloadPageForIndex:(NSInteger)index_
 {
-    if (index < 0 || index >= pageCount_) return;
+    if (index_ < 0 || index_ >= pageCount_) return;
     
-    UIView *currentPage = [pageViews_ objectAtIndex:index];
+    UIView *currentPage = [pageViews_ objectAtIndex:index_];
     
     if ((NSNull *)currentPage != [NSNull null]) {
         [currentPage removeFromSuperview];
-        [pageViews_ replaceObjectAtIndex:index withObject:[NSNull null]];
+        [pageViews_ replaceObjectAtIndex:index_ withObject:[NSNull null]];
     }
 }
 
-- (void)setCurrentIndex:(NSInteger)index
+- (void)setCurrentIndex:(NSInteger)index_
 {
-    currentIndex_ = index;
+    index = index_;
     
-    [self loadPageForIndex:currentIndex_];
-    [self loadPageForIndex:currentIndex_ - 1];
-    [self loadPageForIndex:currentIndex_ + 1];
-    [self unloadPageForIndex:currentIndex_ - 2];
-    [self unloadPageForIndex:currentIndex_ + 2];
-}
-
-- (void)scrollToIndex:(NSInteger)index withAnimation:(BOOL)animation
-{
-    CGRect frame = self.frame;
-    frame.origin.x = frame.size.width * index;
-    frame.origin.y = 0;
-    [self scrollRectToVisible:frame animated:animation];
-    
-    if ([delegate respondsToSelector:@selector(pagingView:didAppearPage:atIndex:)]) {
-        [delegate pagingView:self didAppearPage:[pageViews_ objectAtIndex:currentIndex_] atIndex:currentIndex_];
-    }
+    [self loadPageForIndex:index];
+    [self loadPageForIndex:index - 1];
+    [self loadPageForIndex:index + 1];
+    [self unloadPageForIndex:index - 2];
+    [self unloadPageForIndex:index + 2];
 }
 
 
@@ -167,7 +168,7 @@
     return frame;
 }
 
-- (CGRect)frameForPageAtIndex:(NSInteger)index
+- (CGRect)frameForPageAtIndex:(NSInteger)index_
 {
     // We have to use our paging scroll view's bounds, not frame, to calculate the page placement. When the device is in
     // landscape orientation, the frame will still be in portrait because the pagingView is the root view controller's
@@ -176,7 +177,7 @@
     CGRect bounds = self.bounds;
     CGRect pageFrame = bounds;
     pageFrame.size.width -= (2 * PADDING_);
-    pageFrame.origin.x = (bounds.size.width * index) + PADDING_;
+    pageFrame.origin.x = (bounds.size.width * index_) + PADDING_;
     return pageFrame;
 }
 
@@ -230,5 +231,27 @@
     self.contentOffset = CGPointMake(newOffset, 0);
 }
 
+
+#pragma mark-
+#pragma mark override touch event
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event 
+{	
+    if(!self.dragging) {
+        [[self nextResponder] touchesEnded:touches withEvent:event];
+    }
+    
+    [super touchesEnded:touches withEvent:event];
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    
+    if(!self.dragging) {
+        [[self nextResponder] touchesBegan:touches withEvent:event];
+    }
+    
+    [super touchesBegan:touches withEvent:event];
+    
+}
 
 @end
