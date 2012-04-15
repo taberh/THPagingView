@@ -26,9 +26,9 @@
     return 10;
 }
 
-- (UIView *)pagingView:(THPagingView *)pagingView pageAtIndex:(NSInteger)index
+- (UIView *)pagingView:(THPagingView *)pagingView index:(NSInteger)index frame:(CGRect)frame
 {
-    UIView *view = [[[UIView alloc] init] autorelease];
+    UIView *view = [[[UIView alloc] initWithFrame:frame] autorelease];
     
     switch (index) {
         case 0:

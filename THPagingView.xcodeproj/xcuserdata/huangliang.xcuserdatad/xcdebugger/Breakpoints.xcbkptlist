@@ -9,11 +9,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "THPagingView/Classes/THPagingView.h"
-         timestampString = "355985238.222904"
+         timestampString = "356163085.144399"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "45"
-         endingLineNumber = "45"
+         startingLineNumber = "46"
+         endingLineNumber = "46"
          landmarkName = "index"
          landmarkType = "19">
       </FileBreakpoint>

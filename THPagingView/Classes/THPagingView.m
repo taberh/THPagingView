@@ -119,13 +119,9 @@
     UIView *currentPage = [pageViews_ objectAtIndex:index_];
     
     if ((NSNull *)currentPage == [NSNull null]) {
-        currentPage = [delegate pagingView:self pageAtIndex:index_];
-        
-        currentPage.frame = [self frameForPageAtIndex:index_];
+        currentPage = [delegate pagingView:self index:index_ frame:[self frameForPageAtIndex:index_]];
         
         [pageViews_ replaceObjectAtIndex:index_ withObject:currentPage];
-        
-        [currentPage release];
     }
     
     if (currentPage.superview == nil) {

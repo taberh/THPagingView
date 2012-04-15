@@ -16,7 +16,8 @@
 - (NSInteger)numberOfPageCountInTHPagingView:(THPagingView *)pagingView;
 - (NSInteger)numberOfPagePaddingInPagingView:(THPagingView *)pagingView;
 - (UIView *)pagingView:(THPagingView *)pagingView 
-                 pageAtIndex:(NSInteger)index;
+                 index:(NSInteger)index
+                 frame:(CGRect)frame;
 
 @optional
 - (void)pagingView:(THPagingView *)pagingView 
