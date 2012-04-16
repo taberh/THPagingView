@@ -42,7 +42,7 @@
     CGFloat percentScrolledIntoFirstVisiblePage_;
 }
 
-@property (strong, nonatomic) id <THPagingViewDelegate> delegate;
+@property (assign, nonatomic) id <THPagingViewDelegate> delegate;
 @property (readonly, nonatomic) NSInteger index;
 
 - (id)initWithFrame:(CGRect)frame target:(id)target index:(NSInteger)index;
