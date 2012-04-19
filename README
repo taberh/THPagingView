@@ -1,1 +1,1 @@
-THPagingView是UIScrollView的子类。
+THPagingView是一个封装过的UIScrollView的子类。用于分页展示view，使用接口模仿UITableView。具体使用请见项目中的THRootViewController实现文件。
