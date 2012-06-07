@@ -3,7 +3,7 @@
 //  THPagingScrollView
 //
 //  Created by Liang Huang on 12-4-12.
-//  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012年 iGrow. All rights reserved.
 //
 
 #import "THRootViewController.h"
@@ -16,69 +16,64 @@
     [super dealloc];
 }
 
-- (NSInteger)numberOfPageCountInTHPagingView:(THPagingView *)pagingView
-{
-    return 6;
-}
-
-- (NSInteger)numberOfPagePaddingInPagingView:(THPagingView *)pagingView
+- (NSInteger)numberOfPagesInPagingView:(THPagingView *)pagingView
 {
     return 10;
 }
 
-- (UIView *)pagingView:(THPagingView *)pagingView index:(NSInteger)index frame:(CGRect)frame
+- (NSInteger)numberOfPaddingInPagingView:(THPagingView *)pagingView
 {
-    UIView *view = [[[UIView alloc] initWithFrame:frame] autorelease];
+    return 10;
+}
+
+- (UIView *)pagingView:(THPagingView *)pagingView pageAtIndex:(NSInteger)index
+{
+    UIView *page = [pagingView dequeueReusablePage];
+    
+    if (!page) {
+        page = [[[UIView alloc] init] autorelease];
+    }
     
     switch (index) {
         case 0:
-            view.backgroundColor = [UIColor blueColor];
+            page.backgroundColor = [UIColor blueColor];
             break;
         case 1:
-            view.backgroundColor = [UIColor redColor];
+            page.backgroundColor = [UIColor redColor];
             break;
         case 2:
-            view.backgroundColor = [UIColor yellowColor];
+            page.backgroundColor = [UIColor yellowColor];
             break;
         case 3:
-            view.backgroundColor = [UIColor grayColor];
+            page.backgroundColor = [UIColor grayColor];
             break;
         case 4:
-            view.backgroundColor = [UIColor orangeColor];
+            page.backgroundColor = [UIColor orangeColor];
             break;
         case 5:
-            view.backgroundColor = [UIColor purpleColor];
+            page.backgroundColor = [UIColor purpleColor];
+            break;
+        case 6:
+            page.backgroundColor = [UIColor blackColor];
+            break;
+        case 7:
+            page.backgroundColor = [UIColor whiteColor];
+            break;
+        case 8:
+            page.backgroundColor = [UIColor greenColor];
+            break;
+        case 9:
+            page.backgroundColor = [UIColor magentaColor];
             break;
     }
     
-    return view;
+    return page;
 }
 
 - (void)pagingView:(THPagingView *)pagingView didAppearPage:(UIView *)page atIndex:(NSInteger)index
 {
-    NSLog(@"show %i", index);
-}
-
-- (void)pagingView:(THPagingView *)pagingView willRotatePage:(UIView *)page atIndex:(NSInteger)index
-{
-    NSLog(@"retate %i", index);
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
+    //NSLog(@"show %i", index);
+    //NSLog(@"index %i", pagingView_.index);
 }
 
 #pragma mark - View lifecycle
@@ -88,16 +83,13 @@
 {
     [super viewDidLoad];
     CGRect frame = [[UIScreen mainScreen] bounds];
-    pagingView_ = [[THPagingView alloc] initWithFrame:frame target:self index:0];
+    pagingView_ = [[THPagingView alloc] initWithFrame:frame];
+    pagingView_.startIndex = 0;
+    pagingView_.supportLoop = YES;
+    pagingView_.delegate = self;
+    pagingView_.dataSource = self;
     [self.view addSubview:pagingView_];
     [pagingView_ release];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -108,12 +100,12 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    [pagingView_ willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    //[pagingView_ willRotate:toInterfaceOrientation duration:duration];
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    [pagingView_ willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    //[pagingView_ willAnimateRotation:toInterfaceOrientation duration:duration];
 }
 
 @end
