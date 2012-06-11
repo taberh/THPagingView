@@ -37,6 +37,7 @@
 
 @interface THPagingView ()
 
+- (void)doScrollToPage:(id)sender;
 - (void)scrollToIndex:(NSInteger)aIndex withAnimation:(BOOL)animation;
 - (NSInteger)exportIndex:(NSInteger)oIndex;
 - (void)queueReusableCell:(UIView *)page;
@@ -58,6 +59,8 @@
 @synthesize supportLoop;
 @synthesize index;
 @synthesize startIndex;
+@synthesize enabledIndicator;
+@synthesize indicator;
 
 - (void)dealloc
 {
@@ -67,6 +70,7 @@
     [reusablePages_ release], reusablePages_ = nil;
     [scrollView_ setDelegate:nil];
     [scrollView_ release], scrollView_ = nil;
+    if (indicator) [indicator release], indicator = nil;
     [super dealloc];
 }
 
@@ -89,7 +93,9 @@
         [self addSubview:wrapper];
         [wrapper release], wrapper = nil;
         
+        index = 0;
         startIndex = 0;
+        needReload = YES;
         reusablePages_ = [[NSMutableArray alloc] init];
         pageViews_ = [[NSMutableArray alloc] init];
     }
@@ -109,33 +115,57 @@
 {
     [super layoutSubviews];
     
-    PADDING_ = [dataSource numberOfPaddingInPagingView:self];
-    pageCount_ = [dataSource numberOfPagesInPagingView:self];
-    
-    if (supportLoop) {
-        pageCount_ += 2;
+    if (needReload) {
+        needReload = NO;
+        
+        [pageViews_ removeAllObjects];
+        [reusablePages_ removeAllObjects];
+        
+        PADDING_ = [dataSource numberOfPaddingInPagingView:self];
+        pageCount_ = [dataSource numberOfPagesInPagingView:self];
+        
+        if (pageCount_ == 0) return;
+        
+        if (supportLoop) {
+            pageCount_ += 2;
+        }
+        
+        for (int i = 0; i < pageCount_; i++) {
+            [pageViews_ addObject:[NSNull null]];
+        }
+        
+        scrollView_.frame = [self frameForPagingView];
+        scrollView_.contentSize = [self contentSizeForPagingView];
+        
+        [self scrollPageAtIndex:startIndex withAnimation:NO];
+        
+        if (enabledIndicator) {
+            CGRect indicatorFrame = self.bounds;
+            indicatorFrame.size.height = 20;
+            indicatorFrame.origin.y = self.bounds.size.height - indicatorFrame.size.height;
+            indicator = [[UIPageControl alloc] initWithFrame:indicatorFrame];
+            indicator.numberOfPages = supportLoop ? pageCount_ - 2 : pageCount_;
+            indicator.currentPage = startIndex;
+            [self addSubview:indicator];
+            [indicator addTarget:self action:@selector(doScrollToPage:) 
+                forControlEvents:UIControlEventValueChanged];
+        }
     }
-    
-    [pageViews_ removeAllObjects];
-    [reusablePages_ removeAllObjects];
-    
-    for (int i = 0; i < pageCount_; i++) {
-        [pageViews_ addObject:[NSNull null]];
-    }
-    
-    scrollView_.frame = [self frameForPagingView];
-    scrollView_.contentSize = [self contentSizeForPagingView];
-    
-    [self scrollPageAtIndex:startIndex withAnimation:NO];
 }
 
 
 #pragma mark-
 #pragma mark private
 
+- (void)doScrollToPage:(id)sender
+{
+    int page = indicator.currentPage;
+    [self scrollPageAtIndex:page withAnimation:YES];
+}
+
 - (NSInteger)exportIndex:(NSInteger)oIndex
 {
-    if (!supportLoop) return oIndex;
+    if (!supportLoop || pageCount_ == 0) return oIndex;
     
     if (oIndex == 0) {
         oIndex = pageCount_ - 3;
@@ -224,6 +254,7 @@
 - (void)reloadData
 {
     startIndex = self.index;
+    needReload = YES;
     [self setNeedsLayout];
 }
 
@@ -240,6 +271,7 @@
 {
     CGFloat pageWidth = scrollView.frame.size.width;
     NSInteger page = floor(scrollView.contentOffset.x / pageWidth);
+    
     if (page != index) {
         [self setCurrentIndex:page];
     }
@@ -262,6 +294,10 @@
     
     if ([delegate respondsToSelector:@selector(pagingView:didAppearPage:atIndex:)]) {
         [delegate pagingView:self didAppearPage:[pageViews_ objectAtIndex:index] atIndex:self.index];
+    }
+    
+    if (indicator) {
+        indicator.currentPage = [self exportIndex:index];
     }
 }
 
@@ -328,10 +364,6 @@
 
 - (CGRect)frameForPageAtIndex:(NSInteger)index_
 {
-    // We have to use our paging scroll view's bounds, not frame, to calculate the page placement. When the device is in
-    // landscape orientation, the frame will still be in portrait because the pagingView is the root view controller's
-    // view, so its frame is in window coordinate space, which is never rotated. Its bounds, however, will be in landscape
-    // because it has a rotation transform applied.
     CGRect bounds = [scrollView_ bounds];
     CGRect pageFrame = bounds;
     pageFrame.size.width -= (2 * PADDING_);
@@ -341,7 +373,6 @@
 
 - (CGSize)contentSizeForPagingView
 {
-    // We have to use the paging scroll view's bounds to calculate the contentSize, for the same reason outlined above.
     CGRect bounds = [scrollView_ bounds];
     return CGSizeMake(bounds.size.width * pageCount_, bounds.size.height);
 }
@@ -352,8 +383,6 @@
 
 /*- (void)willRotate:(UIInterfaceOrientation)orientation duration:(NSTimeInterval)duration
  {
- // here, our pagingView bounds have not yet been updated for the new interface orientation. So this is a good
- // place to calculate the content offset that we will need in the new orientation
  CGFloat offset = scrollView_.contentOffset.x;
  CGFloat pageWidth = scrollView_.bounds.size.width;
  
@@ -368,10 +397,8 @@
  
  - (void)willAnimateRotation:(UIInterfaceOrientation)orientation duration:(NSTimeInterval)duration
  {
- // recalculate contentSize based on current orientation
  scrollView_.contentSize = [self contentSizeForPagingView];
  
- // adjust frames and configuration of each visible page
  for (int i = 0; i < pageViews_.count; i++) {
  UIView *page = [pageViews_ objectAtIndex:i];
  
@@ -383,7 +410,6 @@
  }
  }
  
- // adjust contentOffset to preserve page location based on values collected prior to location
  CGFloat pageWidth = scrollView_.bounds.size.width;
  CGFloat newOffset = (firstVisiblePageIndexBeforeRotation_ * pageWidth) + (percentScrolledIntoFirstVisiblePage_ * pageWidth);
  scrollView_.contentOffset = CGPointMake(newOffset, 0);

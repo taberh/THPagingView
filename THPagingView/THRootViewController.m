@@ -3,7 +3,7 @@
 //  THPagingScrollView
 //
 //  Created by Liang Huang on 12-4-12.
-//  Copyright (c) 2012年 iGrow. All rights reserved.
+//  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
 #import "THRootViewController.h"
@@ -82,12 +82,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    [self setWantsFullScreenLayout:YES];
+    
     CGRect frame = [[UIScreen mainScreen] bounds];
     pagingView_ = [[THPagingView alloc] initWithFrame:frame];
     pagingView_.startIndex = 0;
     pagingView_.supportLoop = YES;
     pagingView_.delegate = self;
     pagingView_.dataSource = self;
+    pagingView_.enabledIndicator = YES;
     [self.view addSubview:pagingView_];
     [pagingView_ release];
 }

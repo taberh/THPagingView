@@ -21,6 +21,8 @@
     NSInteger pageCount_;
     NSInteger PADDING_;
     
+    BOOL needReload;
+    
     //int firstVisiblePageIndexBeforeRotation_;
     //CGFloat percentScrolledIntoFirstVisiblePage_;
 }
@@ -30,6 +32,8 @@
 @property (readonly, nonatomic) NSInteger index;
 @property (assign, nonatomic) NSInteger startIndex;
 @property (assign, nonatomic) BOOL supportLoop;
+@property (assign, nonatomic) BOOL enabledIndicator;
+@property (strong, nonatomic, readonly) UIPageControl *indicator;
 
 - (void)scrollPageAtIndex:(NSInteger)aIndex withAnimation:(BOOL)animation;
 - (void)nextPage;
