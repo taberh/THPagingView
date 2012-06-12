@@ -94,7 +94,6 @@
     pagingView_.dataSource = self;
     pagingView_.enabledIndicator = YES;
     [self.view addSubview:pagingView_];
-    [pagingView_ release];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
